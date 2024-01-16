@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherAPI Example</title>
+</head>
+<body>
+    <script>
+        const apiUrl = "https://api.weatherapi.com/v1/current.json?key=21d1391b68404bba99f124618241601&q=london";
+
+        // Make a GET request to the API
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the data as needed
+                console.log(data);
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+            });
+    </script>
+</body>
+</html>

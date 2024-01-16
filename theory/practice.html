@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <img src="#">
+  <div>
+    <label for="search">Search</label>
+    <input type="text" id="search">
+  </div>
+  <script>
+    const img = document.querySelector('img');
+    fetch('https://api.giphy.com/v1/gifs/translate?api_key=hfVAvePpHlbGMha4QnH47nnNQsSSuHJj&s=cats',{mode: 'cors'})
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(response){
+            img.src = response.data.images.original.url;
+        })
+        .catch(error => {
+                console.error("Fetch error:", error);
+            });
+  </script>
+</body>
+</html>
