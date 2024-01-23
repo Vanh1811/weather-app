@@ -12,16 +12,35 @@
   </div>
   <script>
     const img = document.querySelector('img');
-    fetch('https://api.giphy.com/v1/gifs/translate?api_key=hfVAvePpHlbGMha4QnH47nnNQsSSuHJj&s=cats',{mode: 'cors'})
-        .then(function(response){
+
+    function searchGif (){
+        const searchTerm = document.querySelector('#search').value;
+        const apiKey = 'hfVAvePpHlbGMha4QnH47nnNQsSSuHJj';
+
+        if (searchTerm.trim() === ''){
+            img.src = 'default_image_url.jpg'
+            return
+        }
+
+    fetch('https://api.giphy.com/v1/gifs/translate?api_key=${apiKey}&s={searchTerm}',{mode: 'cors'})
+        .then(response => {
+            if(!response.ok){
+                throw new Error(`Giphy API request failed with status: ${response.status}`);
+            }
             return response.json();
         })
         .then(function(response){
-            img.src = response.data.images.original.url;
+            if(response.data.images && response.data.images.original){
+                img.src = response.data.images.original.url;
+            }
+            else{
+                img.src = 'default_image_url.jpg';
+            }
         })
         .catch(error => {
-                console.error("Fetch error:", error);
+                console.error("Fetch error:", error.message);
             });
+    }
   </script>
 </body>
 </html>
